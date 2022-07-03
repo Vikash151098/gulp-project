@@ -5,20 +5,25 @@ agent:
     type: e1-standard-2
     os_image: ubuntu2004
 blocks:
-  - name: Test
+  - name: Install
     task:
       jobs:
-        - name: Test
+        - name: Install
           commands:
             - checkout
             - sem-version node 12
             - cache restore
             - npm install
             - cache store
-            - npm install -g gulp
-            - gulp
-  - name: 'Block #2'
+  - name: Gulp
     task:
       jobs:
-        - name: 'Job #1'
-          commands: []
+        - name: Gulp
+          commands:
+            - npm install -g gulp
+            - gulp
+      prologue:
+        commands:
+          - checkout
+          - sem-version node 12
+          - cache restore
